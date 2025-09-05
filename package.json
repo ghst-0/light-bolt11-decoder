@@ -20,12 +20,14 @@
   ],
   "author": "fiatjaf",
   "license": "MIT",
+  "scripts": {
+    "test": "node --test --experimental-test-coverage tests/basic.test.js"
+  },
   "dependencies": {
     "@scure/base": "1.1.1"
   },
   "devDependencies": {
     "eslint": "^8.0.0",
-    "jest": "^29.4.3",
     "prettier": "^2.4.1"
   }
 }
