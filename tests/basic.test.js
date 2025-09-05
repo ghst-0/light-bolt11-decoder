@@ -1,6 +1,6 @@
 /* eslint-env jest */
 
-const {decode} = require('..')
+import {decode} from '../bolt11.js'
 
 describe('decoding', () => {
   it('should decode an invoice', () => {

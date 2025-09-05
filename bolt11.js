@@ -1,4 +1,4 @@
-const {bech32, hex, utf8} = require('@scure/base')
+import {bech32, hex, utf8} from '@scure/base'
 
 // defaults for encode; default timestamp is current time at call
 const DEFAULTNETWORK = {
@@ -391,7 +391,7 @@ function decode(paymentRequest, network) {
   }
 }
 
-module.exports = {
+export {
   decode,
   hrpToMillisat
 }
