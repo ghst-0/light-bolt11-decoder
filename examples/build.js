@@ -1,18 +1,17 @@
 #!/usr/bin/env node
+import esbuild from 'esbuild'
+import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill'
 
-const esbuild = require('esbuild')
-const nodeGlobals = require('@esbuild-plugins/node-globals-polyfill').default
-
-esbuild
+await esbuild
   .build({
     entryPoints: ['demo.jsx'],
     outfile: 'demo.build.js',
     bundle: true,
-    plugins: [nodeGlobals({buffer: true})],
+    plugins: [NodeGlobalsPolyfillPlugin({buffer: true})],
     define: {
       window: 'self',
       global: 'self'
     },
     sourcemap: 'inline'
   })
-  .then(() => console.log('build success.'))
+console.log('build success.')

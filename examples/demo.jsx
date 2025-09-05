@@ -1,6 +1,6 @@
 import {decode} from 'light-bolt11-decoder'
 import React, {useState} from 'react'
-import {render} from 'react-dom'
+import {createRoot} from 'react-dom/client'
 import useComputedState from 'use-computed-state'
 import styled, {css} from 'styled-components'
 
@@ -118,4 +118,5 @@ function Demo() {
   )
 }
 
-render(<Demo />, document.getElementById('main'))
+const root = createRoot(document.getElementById('main'))
+root.render(<Demo />)
