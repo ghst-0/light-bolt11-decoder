@@ -24,10 +24,10 @@
     "test": "node --test --experimental-test-coverage tests/basic.test.js"
   },
   "dependencies": {
-    "@scure/base": "1.1.1"
+    "@scure/base": "2.0.0"
   },
   "devDependencies": {
     "eslint": "^8.0.0",
-    "prettier": "^2.4.1"
+    "prettier": "^3.6.2"
   }
 }
