@@ -1,6 +1,66 @@
 import {bech32, hex, utf8} from '@scure/base'
 
+/**
+ *
+ * @typedef {{bech32: string, pubKeyHash: number, scriptHash: number, validWitnessVersions: number[]}} Network
+ *
+ * @typedef {{
+ *   name: 'coin_network',
+ *   letters: string,
+ *   value?: Network
+ * }} NetworkSection
+ *
+ * @typedef {{
+ *   option_data_loss_protect: string,
+ *   initial_routing_sync: string,
+ *   option_upfront_shutdown_script: string,
+ *   gossip_queries: string,
+ *   var_onion_optin: string,
+ *   gossip_queries_ex: string,
+ *   option_static_remotekey: string,
+ *   payment_secret: string,
+ *   basic_mpp: string,
+ *   option_support_large_channel: string,
+ *   extra_bits: {
+ *     start_bit: number,
+ *     bits: unknown[],
+ *     has_required: boolean
+ *   }
+ * }} FeatureBits
+ *
+ * @typedef {{ pubkey: string, short_channel_id: string, fee_base_msat: number, fee_proportional_millionths: number, cltv_expiry_delta: number }} RouteHint
+ * @typedef {{ name: "route_hint", tag: "r", letters: string, value: RouteHint[] }} RouteHintSection
+ * @typedef {{ name: "feature_bits", tag: "9", letters: string, value: FeatureBits }} FeatureBitsSection
+ *
+ * @typedef {
+ *   | { name: "paymentRequest", value: string }
+ *   | { name: "expiry", value: number }
+ *   | { name: "checksum", letters: string }
+ *   | NetworkSection
+ *   | { name: "amount", letters: string; value: string }
+ *   | { name: "separator", letters: string }
+ *   | { name: "timestamp", letters: string, value: number }
+ *   | { name: "payment_hash", tag: "p", letters: string, value: string }
+ *   | { name: "description", tag: "d", letters: string, value: string }
+ *   | { name: "payment_secret", tag: "s", letters: string, value: string }
+ *   | {
+ *       name: "min_final_cltv_expiry",
+ *       tag: "c",
+ *       letters: string,
+ *       value: number
+ *     }
+ *   | FeatureBitsSection
+ *   | RouteHintSection
+ *   | { name: "signature", letters: string, value: string }
+ *   | { name: "lightning_network", letters: string }
+ *   } Section
+ *
+ * @typedef {{ paymentRequest: string, sections: Section[], expiry: number, route_hints: RouteHint[][] }} DecodedInvoice
+ *
+ */
+
 // defaults for encode; default timestamp is current time at call
+/** @type {Network} */
 const DEFAULTNETWORK = {
   // default network is bitcoin
   bech32: 'bc',
@@ -8,31 +68,35 @@ const DEFAULTNETWORK = {
   scriptHash: 0x05,
   validWitnessVersions: [0]
 }
+/** @type {Network} */
 const TESTNETWORK = {
   bech32: 'tb',
   pubKeyHash: 0x6f,
   scriptHash: 0xc4,
   validWitnessVersions: [0]
 }
+/** @type {Network} */
 const SIGNETNETWORK = {
   bech32: 'tbs',
   pubKeyHash: 0x6f,
   scriptHash: 0xc4,
   validWitnessVersions: [0]
 }
+/** @type {Network} */
 const REGTESTNETWORK = {
   bech32: 'bcrt',
   pubKeyHash: 0x6f,
   scriptHash: 0xc4,
   validWitnessVersions: [0]
 }
+/** @type {Network} */
 const SIMNETWORK = {
   bech32: 'sb',
   pubKeyHash: 0x3f,
   scriptHash: 0x7b,
   validWitnessVersions: [0]
 }
-
+/** @type {string[]} */
 const FEATUREBIT_ORDER = [
   'option_data_loss_protect',
   'initial_routing_sync',
@@ -92,6 +156,11 @@ const TAGPARSERS = {
   5: featureBitsParser // keep feature bits as array of 5 bit words
 }
 
+/**
+ *
+ * @param {string} tagCode
+ * @returns {function(*): {tagCode: number, words: `unknown1${string}`}}
+ */
 function getUnknownParser(tagCode) {
   return words => ({
     tagCode: parseInt(tagCode),
@@ -99,14 +168,23 @@ function getUnknownParser(tagCode) {
   })
 }
 
+/**
+ *
+ * @param {number[]} words
+ * @returns {*}
+ */
 function wordsToIntBE(words) {
   return words.reverse().reduce((total, item, index) => {
     return total + item * Math.pow(32, index)
   }, 0)
 }
 
-// first convert from words to buffer, trimming padding where necessary
-// parse in 51 byte chunks. See encoder for details.
+/**
+ * First convert from words to buffer, trimming padding where necessary
+ * parse in 51 byte chunks. See encoder for details.
+ * @param {number[]} words
+ * @returns {*[]}
+ */
 function routingInfoParser(words) {
   const routes = []
   let pubkey,
@@ -138,6 +216,11 @@ function routingInfoParser(words) {
   return routes
 }
 
+/**
+ *
+ * @param {Uint8Array} words
+ * @returns {{}}
+ */
 function featureBitsParser(words) {
   const bools = words
     .slice()
@@ -182,6 +265,12 @@ function featureBitsParser(words) {
   return featureBits
 }
 
+/**
+ *
+ * @param {string} hrpString
+ * @param {boolean} outputString
+ * @returns {string|bigint}
+ */
 function hrpToMillisat(hrpString, outputString) {
   let divisor, value
   if (hrpString.slice(-1).match(/^[munp]$/)) {
@@ -212,14 +301,20 @@ function hrpToMillisat(hrpString, outputString) {
   return outputString ? millisatoshisBN.toString() : millisatoshisBN
 }
 
-// decode will only have extra comments that aren't covered in encode comments.
-// also if anything is hard to read I'll comment.
+/**
+ * Decode will only have extra comments that aren't covered in encode comments.
+ * Also, if anything is hard to read I'll comment.
+ * @param {string} paymentRequest
+ * @param {Network=} network
+ * @returns {DecodedInvoice}
+ */
 function decode(paymentRequest, network) {
   if (typeof paymentRequest !== 'string')
     throw new Error('Lightning Payment Request must be string')
   if (paymentRequest.slice(0, 2).toLowerCase() !== 'ln')
     throw new Error('Not a proper lightning payment request')
 
+  /** @type {Section[]} */
   const sections = []
   const decoded = bech32.decode(paymentRequest, Number.MAX_SAFE_INTEGER)
   paymentRequest = paymentRequest.toLowerCase()
@@ -385,6 +480,11 @@ function decode(paymentRequest, network) {
 
   return result
 
+  /**
+   *
+   * @param {string} name
+   * @returns {*|undefined}
+   */
   function getValue(name) {
     let section = sections.find(s => s.name === name)
     return section ? section.value : undefined

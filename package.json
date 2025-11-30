@@ -4,7 +4,6 @@
   "type": "module",
   "description": "decode lightning invoices without overhead (doesn't check signatures).",
   "main": "bolt11.js",
-  "types": "bolt11.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fiatjaf/light-bolt11-decoder.git"
