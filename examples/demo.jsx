@@ -2,7 +2,7 @@ import {decode} from 'light-bolt11-decoder'
 import React, {useState} from 'react'
 import {createRoot} from 'react-dom/client'
 import useComputedState from 'use-computed-state'
-import styled, {css} from 'styled-components'
+import {styled, css} from 'styled-components'
 
 const TAGCOLORS = {
   lightning_network: 'rgb(31, 31, 40)',
@@ -118,5 +118,5 @@ function Demo() {
   )
 }
 
-const root = createRoot(document.getElementById('main'))
+const root = createRoot(document.querySelector('#main'))
 root.render(<Demo />)
