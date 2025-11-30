@@ -1,8 +1,6 @@
 {
   "type": "module",
   "dependencies": {
-    "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
-    "buffer": "^6.0.3",
     "esbuild": "^0.25.9",
     "light-bolt11-decoder": "3.2.0",
     "react": "^19.1.1",
