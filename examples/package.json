@@ -1,7 +1,7 @@
 {
   "type": "module",
   "dependencies": {
-    "light-bolt11-decoder": "3.2.0",
+    "light-bolt11-decoder": "github:ghst-0/light-bolt11-decoder",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "styled-components": "^6.1.19",
