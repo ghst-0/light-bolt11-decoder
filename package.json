@@ -1,6 +1,6 @@
 {
   "name": "light-bolt11-decoder",
-  "version": "3.2.1",
+  "version": "3.2.2",
   "type": "module",
   "description": "decode lightning invoices without overhead (doesn't check signatures).",
   "main": "bolt11.js",
@@ -27,7 +27,38 @@
     "@scure/base": "2.0.0"
   },
   "devDependencies": {
-    "oxlint": "^1.30.0",
-    "prettier": "^3.7.3"
+    "oxlint": "^1.31.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "vite": "npm:rolldown-vite@latest",
+      "rolldown-vite>lightningcss": "-",
+      "rolldown-vite>postcss": "-",
+      "rolldown>@rolldown/binding-android-arm64": "-",
+      "rolldown>@rolldown/binding-darwin-arm64": "-",
+      "rolldown>@rolldown/binding-darwin-x64": "-",
+      "rolldown>@rolldown/binding-freebsd-x64": "-",
+      "rolldown>@rolldown/binding-linux-arm-gnueabihf": "-",
+      "rolldown>@rolldown/binding-linux-arm64-gnu": "-",
+      "rolldown>@rolldown/binding-linux-arm64-musl": "-",
+      "rolldown>@rolldown/binding-linux-x64-musl": "-",
+      "rolldown>@rolldown/binding-openharmony-arm64": "-",
+      "rolldown>@rolldown/binding-wasm32-wasi": "-",
+      "rolldown>@rolldown/binding-win32-arm64-msvc": "-",
+      "rolldown>@rolldown/binding-win32-ia32-msvc": "-",
+      "rolldown>@rolldown/binding-win32-x64-msvc": "-",
+      "@vitejs/plugin-react>@babel/core": "-",
+      "@vitejs/plugin-react>@babel/plugin-transform-react-jsx-self": "-",
+      "@vitejs/plugin-react>@babel/plugin-transform-react-jsx-source": "-",
+      "@vitejs/plugin-react>@types/babel__core": "-",
+      "@vitejs/plugin-react>react-refresh": "-",
+      "oxlint>@oxlint/darwin-arm64": "-",
+      "oxlint>@oxlint/darwin-x64": "-",
+      "oxlint>@oxlint/linux-arm64-gnu": "-",
+      "oxlint>@oxlint/linux-arm64-musl": "-",
+      "@oxlint/linux-x64-musl": "-",
+      "@oxlint/win32-arm64": "-",
+      "@oxlint/win32-x64": "-"
+    }
   }
 }

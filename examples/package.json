@@ -1,17 +1,42 @@
 {
   "type": "module",
   "dependencies": {
-    "light-bolt11-decoder": "github:ghst-0/light-bolt11-decoder#v3.2.1",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
+    "light-bolt11-decoder": "../",
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1",
     "styled-components": "^6.1.19",
     "use-computed-state": "^1.2.0"
   },
   "devDependencies": {
-    "rolldown": "^1.0.0-beta.52"
+    "rolldown": "^1.0.0-beta.53"
   },
   "scripts": {
     "build": "rolldown demo.jsx --file demo.build.js",
     "lint": "oxlint"
+  },
+  "pnpm": {
+    "overrides": {
+      "vite": "npm:rolldown-vite@latest",
+      "rolldown-vite>lightningcss": "-",
+      "rolldown-vite>postcss": "-",
+      "rolldown>@rolldown/binding-android-arm64": "-",
+      "rolldown>@rolldown/binding-darwin-arm64": "-",
+      "rolldown>@rolldown/binding-darwin-x64": "-",
+      "rolldown>@rolldown/binding-freebsd-x64": "-",
+      "rolldown>@rolldown/binding-linux-arm-gnueabihf": "-",
+      "rolldown>@rolldown/binding-linux-arm64-gnu": "-",
+      "rolldown>@rolldown/binding-linux-arm64-musl": "-",
+      "rolldown>@rolldown/binding-linux-x64-musl": "-",
+      "rolldown>@rolldown/binding-openharmony-arm64": "-",
+      "rolldown>@rolldown/binding-wasm32-wasi": "-",
+      "rolldown>@rolldown/binding-win32-arm64-msvc": "-",
+      "rolldown>@rolldown/binding-win32-ia32-msvc": "-",
+      "rolldown>@rolldown/binding-win32-x64-msvc": "-",
+      "@vitejs/plugin-react>@babel/core": "-",
+      "@vitejs/plugin-react>@babel/plugin-transform-react-jsx-self": "-",
+      "@vitejs/plugin-react>@babel/plugin-transform-react-jsx-source": "-",
+      "@vitejs/plugin-react>@types/babel__core": "-",
+      "@vitejs/plugin-react>react-refresh": "-"
+    }
   }
 }
