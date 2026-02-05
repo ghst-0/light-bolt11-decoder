@@ -1,0 +1,13 @@
+{
+  "type": "module",
+  "dependencies": {
+    "light-bolt11-decoder": "../"
+  },
+  "devDependencies": {
+    "rolldown": "^1.0.0-beta.52"
+  },
+  "scripts": {
+    "build": "rolldown example.js --file example.build.js",
+    "lint": "oxlint"
+  }
+}

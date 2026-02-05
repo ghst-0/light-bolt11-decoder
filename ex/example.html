@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>bolt11 demo</title>
+    <script src="example.build.js" type="module">
+      <script>
+        window.onload = start
+    </script>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <div id="main">
+      <label for="textInput"></label>
+      <textarea id="textInput" onChange="setPR(this.value)"></textarea>
+      <span id="decoded"></span>
+
+      <PaymentRequest>
+        {parsed.sections.map(section => (
+        <section
+          key="{section.letters}"
+          name="{section.name}"
+          onMouseEnter="{()"
+          =""
+        >
+          setInfo(section)} onMouseLeave={() => setInfo(null)} >
+          {section.letters}
+        </section>
+        ))}
+      </PaymentRequest>
+      {info && (
+      <Info name="{info.name}">
+        <div>name: {info.name}</div>
+        {info.tag &&
+        <div>tag: {info.tag}</div>
+        }
+        <div>value: {JSON.stringify(info.value)}</div>
+      </Info>
+    </div>
+  
+  </body>
+</html>

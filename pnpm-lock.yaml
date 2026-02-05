@@ -1,0 +1,79 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+overrides:
+  vite: npm:rolldown-vite@latest
+  rolldown-vite>lightningcss: '-'
+  rolldown-vite>postcss: '-'
+  rolldown>@rolldown/binding-android-arm64: '-'
+  rolldown>@rolldown/binding-darwin-arm64: '-'
+  rolldown>@rolldown/binding-darwin-x64: '-'
+  rolldown>@rolldown/binding-freebsd-x64: '-'
+  rolldown>@rolldown/binding-linux-arm-gnueabihf: '-'
+  rolldown>@rolldown/binding-linux-arm64-gnu: '-'
+  rolldown>@rolldown/binding-linux-arm64-musl: '-'
+  rolldown>@rolldown/binding-linux-x64-musl: '-'
+  rolldown>@rolldown/binding-openharmony-arm64: '-'
+  rolldown>@rolldown/binding-wasm32-wasi: '-'
+  rolldown>@rolldown/binding-win32-arm64-msvc: '-'
+  rolldown>@rolldown/binding-win32-ia32-msvc: '-'
+  rolldown>@rolldown/binding-win32-x64-msvc: '-'
+  '@vitejs/plugin-react>@babel/core': '-'
+  '@vitejs/plugin-react>@babel/plugin-transform-react-jsx-self': '-'
+  '@vitejs/plugin-react>@babel/plugin-transform-react-jsx-source': '-'
+  '@vitejs/plugin-react>@types/babel__core': '-'
+  '@vitejs/plugin-react>react-refresh': '-'
+  oxlint>@oxlint/darwin-arm64: '-'
+  oxlint>@oxlint/darwin-x64: '-'
+  oxlint>@oxlint/linux-arm64-gnu: '-'
+  oxlint>@oxlint/linux-arm64-musl: '-'
+  '@oxlint/linux-x64-musl': '-'
+  '@oxlint/win32-arm64': '-'
+  '@oxlint/win32-x64': '-'
+
+importers:
+
+  .:
+    dependencies:
+      '@scure/base':
+        specifier: 2.0.0
+        version: 2.0.0
+    devDependencies:
+      oxlint:
+        specifier: ^1.31.0
+        version: 1.31.0
+
+packages:
+
+  '@oxlint/linux-x64-gnu@1.31.0':
+    resolution: {integrity: sha512-vNIbpSwQ4dwN0CUmojG7Y91O3CXOf0Kno7DSTshk/JJR4+u8HNVuYVjX2qBRk0OMc4wscJbEd7wJCl0VJOoCOw==}
+    cpu: [x64]
+    os: [linux]
+    libc: [glibc]
+
+  '@scure/base@2.0.0':
+    resolution: {integrity: sha512-3E1kpuZginKkek01ovG8krQ0Z44E3DHPjc5S2rjJw9lZn3KSQOs8S7wqikF/AH7iRanHypj85uGyxk0XAyC37w==}
+
+  oxlint@1.31.0:
+    resolution: {integrity: sha512-U+Z3VShi1zuLF2Hz/pm4vWJUBm5sDHjwSzj340tz4tS2yXg9H5PTipsZv+Yu/alg6Z7EM2cZPKGNBZAvmdfkQg==}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    hasBin: true
+    peerDependencies:
+      oxlint-tsgolint: '>=0.8.1'
+    peerDependenciesMeta:
+      oxlint-tsgolint:
+        optional: true
+
+snapshots:
+
+  '@oxlint/linux-x64-gnu@1.31.0':
+    optional: true
+
+  '@scure/base@2.0.0': {}
+
+  oxlint@1.31.0:
+    optionalDependencies:
+      '@oxlint/linux-x64-gnu': 1.31.0
