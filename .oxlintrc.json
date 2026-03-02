@@ -13,7 +13,6 @@
     "perf": "warn",
     "pedantic": "warn"
   },
-  "files": ["**/*.js"],
   "rules": {
     "eslint/array-callback-return": ["warn", { "checkForEach": true }],
     "eslint/eqeqeq": ["warn", "always", {"null": "ignore"}],
